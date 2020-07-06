@@ -1,10 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using Microsoft.Extensions.Configuration;
 
 namespace DiscordBotTemplate.Services
 {
