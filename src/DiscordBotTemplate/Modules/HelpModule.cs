@@ -4,7 +4,7 @@ using Discord;
 using Discord.Commands;
 using DiscordBotTemplate.Models;
 
-namespace DiscordBotTemplate
+namespace DiscordBotTemplate.Modules
 {
     [Name("Help Module")]
     public class HelpModule: ModuleBase<SocketCommandContext>
