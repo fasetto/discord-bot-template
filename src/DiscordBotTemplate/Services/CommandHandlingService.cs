@@ -46,7 +46,12 @@ namespace DiscordBotTemplate.Services
             // if (!message.HasMentionPrefix(_discord.CurrentUser, ref argPos)) return;
             if (!message.HasStringPrefix(prefix, ref argPos)) return;
 
-            await commands.ExecuteAsync(context, argPos, provider);
+            var result = await commands.ExecuteAsync(context, argPos, provider);
+
+            if (result.IsSuccess)
+                return;
+
+            await context.Channel.SendMessageAsync(result.ErrorReason);
         }
 
     }
