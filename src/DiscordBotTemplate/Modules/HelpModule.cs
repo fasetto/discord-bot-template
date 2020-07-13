@@ -53,7 +53,7 @@ namespace DiscordBotTemplate.Modules
 
         [Command("help")]
         [Summary("Prints this help message.")]
-        public async Task Help(string command = null)
+        public async Task Help([Remainder] string command = null)
         {
             if (command == null)
             {
