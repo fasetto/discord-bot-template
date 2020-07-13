@@ -7,6 +7,7 @@ using DiscordBotTemplate.Models;
 namespace DiscordBotTemplate.Modules
 {
     [Name("Help Module")]
+    [RequireContext(ContextType.Guild)]
     public class HelpModule: ModuleBase<SocketCommandContext>
     {
         private readonly CommandService service;
@@ -46,6 +47,8 @@ namespace DiscordBotTemplate.Modules
                         x.IsInline = false;
                     });
                 }
+
+                builder.WithFooter("Some footer text here..");
             }
 
             await ReplyAsync("", embed: builder.Build());
@@ -74,7 +77,7 @@ namespace DiscordBotTemplate.Modules
             var builder = new EmbedBuilder()
             {
                 Color       = new Color(0xFD3439),
-                Description = $":closed_book: Here are some commands like **{command}**"
+                Description = $":closed_book: Found commands"
             };
 
             foreach (var match in result.Commands)
@@ -83,12 +86,14 @@ namespace DiscordBotTemplate.Modules
 
                 builder.AddField(x =>
                 {
-                    x.Name = string.Join(", ", cmd.Aliases);
-                    x.Value = $"Parameters: {string.Join(", ", cmd.Parameters.Select(p => p.Name))}\n" +
-                              $"Summary   : {cmd.Summary}";
+                    x.Name = $"{config.DefaultPrefix} " + string.Join(", ", cmd.Aliases);
+                    x.Value = "*Parameters:*" + string.Join(", ", cmd.Parameters.Select(p => p.Name)) + "\n\n" +
+                        cmd.Summary;
                     x.IsInline = false;
                 });
             }
+
+            builder.WithFooter("Some footer text here..");
 
             await ReplyAsync("", embed: builder.Build());
         }
